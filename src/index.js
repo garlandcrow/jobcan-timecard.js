@@ -4,7 +4,7 @@ require('dotenv').config();
 
 (async () => {
   const { username, password } = getUsernamePassword()
-  console.info(`Punching the clock for user "${username}":`);
+  console.info(`Punching the clock for user "${username}":`)
 
   try {
     const result = await punchTheClock(username, password)
@@ -27,7 +27,7 @@ require('dotenv').config();
     console.error(error)
     process.exit(1)
   }
-})();
+})()
 
 function getUsernamePassword() {
   var [username, password] = process.argv.slice(2)
@@ -46,4 +46,3 @@ function getUsernamePassword() {
 
   return { username, password }
 }
-

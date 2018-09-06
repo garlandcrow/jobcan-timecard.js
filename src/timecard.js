@@ -22,7 +22,7 @@ async function punchTheClock(username, password) {
   isDebug && console.log(`\t> DEBUG: entered form data username='${username}', password='${password}'`)
   isDebug && await page.screenshot({ path: '10_data_entered.png' })
 
-  await passwordInput.press('Enter');
+  await passwordInput.press('Enter')
   await page.waitForNavigation()
   console.log('\t> logged in user')
   isDebug && await page.screenshot({ path: '20_logged_in.png' })
