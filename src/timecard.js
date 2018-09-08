@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer')
 const util = require('util')
 const setTimeoutAsync = util.promisify(setTimeout)
+const config = require('./config')
 
 async function punchTheClock(username, password) {
-  const { delay, maxRetries, isDebug } = getSettings()
+  const { delay, maxRetries, isDebug } = config
 
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -58,14 +59,6 @@ async function punchTheClock(username, password) {
   await browser.close()
 
   return result
-}
-
-function getSettings() {
-  const delay = ((x) => x ? parseInt(x) : 3000)(process.env.JOBCAN_DELAY)
-  const maxRetries = ((x) => x ? parseInt(x) : 5)(process.env.JOBCAN_MAX_RETRIES)
-  const isDebug = ((x) => x ? ['1', 'true'].indexOf(`${x}`.toLowerCase()) > -1 : false)
-    (process.env.JOBCAN_DEBUG)
-  return { delay, maxRetries, isDebug }
 }
 
 module.exports = { punchTheClock }

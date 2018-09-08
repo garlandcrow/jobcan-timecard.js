@@ -1,10 +1,14 @@
 const punchTheClock = require('./timecard').punchTheClock
 const tempus = require('tempusjs')
-require('dotenv').config();
+const isWorkDay = require('./calendar').isWorkDay;
 
 (async () => {
   const { username, password } = getUsernamePassword()
-  console.info(`Punching the clock for user "${username}":`)
+  if (false == await isWorkDay()) {
+    console.log(`No work day today, enjoy!`);
+    process.exit(0)
+  }
+  console.log(`Punching the clock for user "${username}":`)
 
   try {
     const result = await punchTheClock(username, password)
