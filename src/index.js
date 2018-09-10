@@ -1,9 +1,12 @@
 const punchTheClock = require('./timecard').punchTheClock
 const tempus = require('tempusjs')
-const isWorkDay = require('./calendar').isWorkDay;
+const isWorkDay = require('./calendar').isWorkDay
+const config = require('./config');
+
 
 (async () => {
-  const { username, password } = getUsernamePassword()
+  const { username, password } = config
+
   if (false == await isWorkDay()) {
     console.log(`No work day today, enjoy!`);
     process.exit(0)
@@ -32,21 +35,3 @@ const isWorkDay = require('./calendar').isWorkDay;
     process.exit(1)
   }
 })()
-
-function getUsernamePassword() {
-  var [username, password] = process.argv.slice(2)
-
-  username = username || process.env.JOBCAN_USERNAME
-  if (!username) {
-    console.error("You must supply username using env var 'JOBCAN_USERNAME' or as 1st argument.")
-    process.exit(1)
-  }
-
-  password = password || process.env.JOBCAN_PASSWORD
-  if (!password) {
-    console.error("You must supply password using env var 'JOBCAN_PASSWORD' or as 2nd argument.")
-    process.exit(1)
-  }
-
-  return { username, password }
-}
